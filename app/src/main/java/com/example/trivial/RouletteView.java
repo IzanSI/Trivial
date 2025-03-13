@@ -12,14 +12,25 @@ import android.view.View;
 public class RouletteView extends View {
     private Paint paint;
     private RectF rect;
-    private float rotationAngle = 0;
-    private final int[] colors = {Color.BLUE, Color.MAGENTA, Color.YELLOW, Color.rgb(165, 42, 42), // Marrón
-            Color.GREEN, Color.rgb(255, 165, 0), Color.RED}; // Naranja y rojo
+    private ObjectAnimator animator;
+
+    // Paleta de colores basada en la imagen de referencia
+    private final int[] colors = {
+            Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN,
+            Color.MAGENTA, Color.rgb(255, 165, 0), Color.rgb(165, 42, 42)
+    };
 
     public RouletteView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         rect = new RectF();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        setPivotX(w / 2f);
+        setPivotY(h / 2f);
         startRotation();
     }
 
@@ -29,6 +40,7 @@ public class RouletteView extends View {
         int width = getWidth();
         int height = getHeight();
         int size = Math.min(width, height);
+        float radius = size / 2f;
         rect.set(0, 0, size, size);
 
         float startAngle = 0;
@@ -36,24 +48,28 @@ public class RouletteView extends View {
 
         for (int color : colors) {
             paint.setColor(color);
-            canvas.drawArc(rect, startAngle + rotationAngle, sweepAngle, true, paint);
+            canvas.drawArc(rect, startAngle, sweepAngle, true, paint);
             startAngle += sweepAngle;
         }
+
+        // Dibujar el centro de la ruleta (círculo pequeño para el efecto)
+        paint.setColor(Color.WHITE);
+        canvas.drawCircle(width / 2f, height / 2f, radius / 8, paint);
     }
 
-    private void startRotation() {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "rotationAngle", 0, 360);
-        animator.setDuration(3000); // 3 segundos por vuelta
-        animator.setRepeatCount(ObjectAnimator.INFINITE);
+    public void startRotation() {
+        if (animator == null) {
+            animator = ObjectAnimator.ofFloat(this, "rotation", 0, 360);
+            animator.setDuration(3000);
+            animator.setRepeatCount(ObjectAnimator.INFINITE);
+            animator.setInterpolator(null);
+        }
         animator.start();
     }
 
-    public void setRotationAngle(float angle) {
-        rotationAngle = angle;
-        invalidate();
-    }
-
-    public float getRotationAngle() {
-        return rotationAngle;
+    public void stopRotation() {
+        if (animator != null) {
+            animator.cancel();
+        }
     }
 }

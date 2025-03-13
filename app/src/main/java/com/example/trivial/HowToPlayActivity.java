@@ -17,13 +17,12 @@ public class HowToPlayActivity extends AppCompatActivity {
         Button btnVolver = findViewById(R.id.btnVolver);
         btnVolver.setOnClickListener(v -> finish());
 
-        /**
+
         Button btnJugar = findViewById(R.id.btnJugar);
         btnJugar.setOnClickListener(v -> {
             Intent intent = new Intent(HowToPlayActivity.this, GameActivity.class);
             startActivity(intent);
         });
-         */
     }
 }
 

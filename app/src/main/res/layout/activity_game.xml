@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#87CEEB"
+    android:padding="16dp">
+
+    <!-- Puntuación y contador de preguntas -->
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Puntuación: 0"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/questionCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="Pregunta: 1/5"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Ruleta -->
+    <com.example.trivial.RouletteView
+        android:id="@+id/rouletteView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/scoreText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Pregunta -->
+    <TextView
+        android:id="@+id/questionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rouletteView"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/question_background"
+        android:padding="16dp"
+        android:text="Presiona la ruleta para girar"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="#000000"/>
+
+    <!-- Opciones de respuesta -->
+    <RadioGroup
+        android:id="@+id/optionsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questionText"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <RadioButton android:id="@+id/option1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/option_background"/>
+
+        <RadioButton android:id="@+id/option2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/option_background"/>
+
+        <RadioButton android:id="@+id/option3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/option_background"/>
+
+        <RadioButton android:id="@+id/option4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@drawable/option_background"/>
+    </RadioGroup>
+
+    <!-- Botones -->
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/optionsGroup"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#4CAF50"
+        android:text="Responder"
+        android:textColor="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/optionsGroup"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#2196F3"
+        android:text="Siguiente"
+        android:textColor="#FFFFFF"
+        android:visibility="gone"/>
+</RelativeLayout>

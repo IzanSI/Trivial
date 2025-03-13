@@ -1,102 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="20dp"
     android:background="#87CEEB">
 
-    <TextView
-        android:id="@+id/tituloInstrucciones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="¿CÓMO JUGAR?"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"/>
-
-    <!-- Subtítulo -->
-    <TextView
-        android:id="@+id/subtituloInstrucciones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="INSTRUCCIONES"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:background="@drawable/rounded_background"
-        android:layout_marginBottom="20dp"/>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginBottom="30dp">
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/inicioRonda"
-            android:layout_width="90mm"
+            android:id="@+id/howToPlayTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="INICIO DE RONDA\nCuando empiece el juego el jugador deberá\nescoger el número de rondas que desea jugar\ny presionar el botón de jugar"
-            android:background="@drawable/box_pink"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"
-            android:layout_marginBottom="15dp"/>
-
-        <TextView
-            android:id="@+id/quiz"
-            android:layout_width="90in"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="QUIZ\nCuando inicie el quiz, al jugador se le \nmostrarán las preguntas con una o más\nrespuestas, si acierta se le sumará un putno\nal contador, pero si no, la preguntá no sumará"
-            android:background="@drawable/box_yellow"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"
-            android:layout_marginBottom="15dp"/>
-
-        <TextView
-            android:id="@+id/finalJuego"
-            android:layout_width="90in"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="FINAL\nUna vez finalizado el juego se le mostrará al\njugador la cantidad total de puntos que ha\nrealizado"
-            android:background="@drawable/box_blue"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btnVolver"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Volver"
-            android:backgroundTint="#FF9800"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Cómo Jugar"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_marginEnd="10dp"/>
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/gameImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@id/howToPlayTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:background="@drawable/round_background" />
+
+        <TextView
+            android:id="@+id/instructionsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gameImage"
+            android:layout_marginTop="9dp"
+            android:text="Instrucciones:"
+            android:textColor="#000000"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/instructionsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/instructionsTitle"
+            android:layout_marginTop="10dp"
+            android:text="1. Pulsa el botón 'Jugar' para comenzar una nueva partida.\n\n2. En cada ronda, se te presentará una pregunta con cuatro posibles respuestas.\n\n3. Selecciona la respuesta que crees que es correcta y pulsa 'Responder'.\n\n4. Recibirás retroalimentación inmediata de si has acertado o fallado.\n\n5. Al final de la ronda, se mostrará tu puntuación total.\n\n6. ¡Intenta superar tu récord personal!"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/audienceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/instructionsText"
+            android:layout_marginTop="9dp"
+            android:text="Público objetivo:"
+            android:textColor="#000000"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/audienceText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/audienceTitle"
+            android:layout_marginTop="10dp"
+            android:text="Este juego está diseñado para personas de todas las edades que quieran poner a prueba sus conocimientos generales de forma divertida y educativa."
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnJugar"
-            android:layout_width="0dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Jugar"
+            android:layout_below="@id/audienceText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
             android:backgroundTint="#4CAF50"
+            android:text="Jugar ahora"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"/>
-    </LinearLayout>
+            android:textSize="18sp" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnJugar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#FF9800"
+            android:text="Volver"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+</ScrollView>

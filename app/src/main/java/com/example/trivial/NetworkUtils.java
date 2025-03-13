@@ -9,34 +9,43 @@ import java.net.URL;
 public class NetworkUtils {
 
     public static String getResponseFromUrl(String urlString) {
-        HttpURLConnection connection = null;
+        HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
-        StringBuilder result = new StringBuilder();
+        String result = null;
 
         try {
             URL url = new URL(urlString);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setConnectTimeout(5000);
-            connection.setReadTimeout(5000);
-            connection.connect();
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
-            // Leer respuesta
-            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
+            // Check if the connection is successful
+            int responseCode = urlConnection.getResponseCode();
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                return null;
             }
 
-            return result.toString();
+            // Read the input stream into a String
+            reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            StringBuilder buffer = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line).append("\n");
+            }
+
+            if (buffer.length() == 0) {
+                // Stream was empty
+                return null;
+            }
+            result = buffer.toString();
 
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
         } finally {
-            // Cerrar conexiones
-            if (connection != null) {
-                connection.disconnect();
+            // Close resources
+            if (urlConnection != null) {
+                urlConnection.disconnect();
             }
             if (reader != null) {
                 try {
@@ -46,5 +55,7 @@ public class NetworkUtils {
                 }
             }
         }
+
+        return result;
     }
 }
