@@ -250,13 +250,11 @@ public class GameActivity extends AppCompatActivity {
                         questions.add(new Question(questionText, correctAnswer, options));
                     }
 
-                    // Reiniciar índices y puntaje
                     currentQuestionIndex = 0;
                     score = 0;
                     updateScoreText();
                     updateQuestionCountText();
 
-                    // Mostrar primera pregunta
                     if (!questions.isEmpty()) {
                         showQuestion(questions.get(0));
                     } else {

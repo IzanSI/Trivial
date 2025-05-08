@@ -12,19 +12,17 @@ public class MusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Inicializar el MediaPlayer con la música de fondo (archivo en /res/raw)
+        // Inicializar el MediaPlayer con la música de fondo
         mediaPlayer = MediaPlayer.create(this, R.raw.m);
-        mediaPlayer.setLooping(true);  // repetir en bucle
+        mediaPlayer.setLooping(true);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        // Iniciar la música si no se está reproduciendo ya
         if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
             mediaPlayer.start();
         }
-        // Mantener el servicio ejecutándose hasta que se detenga explícitamente (START_STICKY)
         return START_STICKY;
     }
 
@@ -43,7 +41,6 @@ public class MusicService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // No vamos a permitir binding (no usado en este caso)
         return null;
     }
 }

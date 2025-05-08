@@ -34,13 +34,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // ✅ Música de fondo
         if (SettingsActivity.musicEnabled) {
             Intent musicIntent = new Intent(this, MusicService.class);
             startService(musicIntent);
         }
 
-        // ✅ SoundPool
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         soundIdClick = soundPool.load(this, R.raw.button_click, 1);
 
-        // ✅ Botones
         Button btnComoJugar = findViewById(R.id.btnComJugar);
         btnComoJugar.setOnClickListener(v -> {
             playClickSound();
@@ -72,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
         });
 
-        // ✅ Gestures
         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             private static final int SWIPE_THRESHOLD = 100;
             private static final int SWIPE_VELOCITY_THRESHOLD = 100;
