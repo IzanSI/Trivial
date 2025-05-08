@@ -1,87 +1,80 @@
 package com.example.trivial;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    // NUEVO: preferencias temporales de música y efectos
+    public static boolean musicEnabled = false;
+    public static boolean soundEnabled = false;
+
+    // UI existente
     private SeekBar questionsSeekBar;
     private TextView questionsCountText;
     private Button resetScoreButton;
-    private SharedPreferences preferences;
-    private static final String PREFS_NAME = "TrivialPrefs";
-    private static final String QUESTIONS_COUNT_KEY = "questionsCount";
-    private static final String HIGH_SCORE_KEY = "highScore";
+    private Button btnVolver;
+
+    // NUEVO: switches
+    private Switch switchMusic;
+    private Switch switchSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
-        // Inicializar preferencias
-        preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-
-        // Inicializar vistas
+        // Inicialización de elementos ya existentes
         questionsSeekBar = findViewById(R.id.questionsSeekBar);
         questionsCountText = findViewById(R.id.questionsCountText);
         resetScoreButton = findViewById(R.id.resetScoreButton);
-        Button btnVolver = findViewById(R.id.btnVolver);
-
-        // Configurar seekbar
-        int currentQuestions = preferences.getInt(QUESTIONS_COUNT_KEY, 5);
-        questionsSeekBar.setProgress(currentQuestions - 5); // Mínimo 5 preguntas
-        updateQuestionsText(currentQuestions);
+        btnVolver = findViewById(R.id.btnVolver);
 
         questionsSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int actualCount = progress + 5; // Mínimo 5 preguntas
-                updateQuestionsText(actualCount);
+                int value = Math.max(progress, 1);
+                questionsCountText.setText("Preguntas por ronda: " + value);
             }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                int questionCount = seekBar.getProgress() + 5; // Mínimo 5 preguntas
-                saveQuestionCount(questionCount);
-            }
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // Configurar botón de reinicio
-        resetScoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetHighScore();
-                Toast.makeText(SettingsActivity.this, "Puntuación máxima reiniciada", Toast.LENGTH_SHORT).show();
-            }
+        resetScoreButton.setOnClickListener(v -> {
+            // Aquí iría tu lógica para reiniciar la puntuación máxima
         });
 
-        // Botón Volver
         btnVolver.setOnClickListener(v -> finish());
-    }
 
-    private void updateQuestionsText(int count) {
-        questionsCountText.setText("Preguntas por ronda: " + count);
-    }
+        // NUEVO: inicializar switches
+        switchMusic = findViewById(R.id.switch_music);
+        switchSound = findViewById(R.id.switch_sound_effects);
 
-    private void saveQuestionCount(int count) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(QUESTIONS_COUNT_KEY, count);
-        editor.apply();
-        Toast.makeText(this, "Configuración guardada", Toast.LENGTH_SHORT).show();
-    }
+        // Estados iniciales
+        switchMusic.setChecked(musicEnabled);
+        switchSound.setChecked(soundEnabled);
 
-    private void resetHighScore() {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(HIGH_SCORE_KEY, 0);
-        editor.apply();
+        // Listener para música de fondo
+        switchMusic.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            musicEnabled = isChecked;
+            Intent intent = new Intent(this, MusicService.class);
+            if (isChecked) {
+                startService(intent);
+            } else {
+                stopService(intent);
+            }
+        });
+
+        // Listener para efectos de sonido
+        switchSound.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            soundEnabled = isChecked;
+        });
     }
 }

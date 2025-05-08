@@ -56,12 +56,56 @@
         android:text="Reiniciar Puntuación Máxima"
         android:textColor="#FFFFFF" />
 
+    <LinearLayout
+        android:id="@+id/layout_music"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/resetScoreButton"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Música de fondo"
+            android:textSize="18sp" />
+
+        <Switch
+            android:id="@+id/switch_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_effects"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_music"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Efectos de sonido"
+            android:textSize="18sp" />
+
+        <Switch
+            android:id="@+id/switch_sound_effects"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/btnVolver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/resetScoreButton"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="131dp"
         android:backgroundTint="#4CAF50"
         android:text="Volver"
         android:textColor="#FFFFFF" />
