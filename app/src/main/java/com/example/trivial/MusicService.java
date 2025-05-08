@@ -29,7 +29,6 @@ public class MusicService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // Detener y liberar el MediaPlayer si existe
         if (mediaPlayer != null) {
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();

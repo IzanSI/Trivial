@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
         });
 
+        // Gestos: deslizar izquierda/derecha y doble tap
         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             private static final int SWIPE_THRESHOLD = 100;
             private static final int SWIPE_VELOCITY_THRESHOLD = 100;
@@ -81,10 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
-                            // Deslizar derecha → Cómo jugar
                             startActivity(new Intent(MainActivity.this, HowToPlayActivity.class));
                         } else {
-                            // Deslizar izquierda → Jugar
                             startActivity(new Intent(MainActivity.this, GameActivity.class));
                         }
                         return true;
@@ -95,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                // Doble tap → Configuración
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 return true;
             }
@@ -108,6 +106,14 @@ public class MainActivity extends AppCompatActivity {
         if (SettingsActivity.soundEnabled) {
             soundPool.play(soundIdClick, 1, 1, 0, 0, 1);
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (gestureDetector != null && gestureDetector.onTouchEvent(ev)) {
+            return true;
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
